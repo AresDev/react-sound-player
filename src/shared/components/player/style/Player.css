@@ -1,0 +1,10 @@
+.Player {
+    align-items: center;
+    display: flex;
+    flex: .8;
+    justify-content: center;
+    border: 1px red solid;
+    flex-Direction: row;
+    height: 100px;
+    position: relative;
+}
