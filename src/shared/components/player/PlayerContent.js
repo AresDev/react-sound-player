@@ -9,14 +9,22 @@ export class PlayerContent extends Component {
         <div id="player-track">
           <div id="album-name">{this.props.info.currAlbum}</div>
           <div id="track-name">{this.props.info.currTrackName}</div>
-          <div id="track-time">
-            <div id="current-time"></div>
-            <div id="track-length"></div>
+          <div id="track-time" className={activeClass}>
+            <div id="current-time">{this.props.info.currentTime}</div>
+            <div id="track-length">{this.props.info.totalTime}</div>
           </div>
-          <div id="s-area">
+          <div
+            id="s-area"
+            onMouseOut={this.props.seekBarMouseOut}
+            onMouseMove={this.props.seekBarMouseMove}
+            onClick={this.props.seekBarClicked}
+          >
             <div id="ins-time"></div>
             <div id="s-hover"></div>
-            <div id="seek-bar"></div>
+            <div
+              id="seek-bar"
+              style={{ width: this.props.info.playProgress }}
+            ></div>
           </div>
         </div>
       </div>

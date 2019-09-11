@@ -1,0 +1,37 @@
+{
+  "token": "7UaoXtC-PV7GXJYKsVCVrQ",
+  "data": {
+    "playlist": [
+      {
+        "album": "Amanecer",
+        "name": "Bomba Estereo - To My Love",
+        "trackUrl": "https://d2tml28x3t0b85.cloudfront.net/tracks/stream_files/000/696/722/original/Bomba%20Est%C3%A9reo%20-%20To%20My%20Love%20%28Moombahton%20Bootleg%29.mp3?1514668785",
+        "artWork": "https://upload.wikimedia.org/wikipedia/en/thumb/2/2e/Amanecer_album_cover.jpg/220px-Amanecer_album_cover.jpg"
+      },
+      {
+        "album": "Me & You",
+        "name": "Alex Skrindo - Me & You",
+        "trackUrl": "https://k003.kiwi6.com/hotlink/2rc3rz4rnp/1.mp3",
+        "artWork": "http://k003.kiwi6.com/hotlink/ifpd9xk6n4/2.jpg"
+      },
+      {
+        "album": "Electro Boy",
+        "name": "Kaaze - Electro Boy",
+        "trackUrl": "http://k003.kiwi6.com/hotlink/gt2rduy0mo/3.mp3",
+        "artWork": "http://k003.kiwi6.com/hotlink/36u2tfrwiu/3.jpg"
+      },
+      {
+        "album": "Home",
+        "name": "Jordan Schor - Home",
+        "trackUrl": "http://k003.kiwi6.com/hotlink/421ezo6l38/4.mp3",
+        "artWork": "http://k003.kiwi6.com/hotlink/l633hnztuz/4.jpg"
+      },
+      {
+        "album": "Proxy (Original Mix)",
+        "name": "Martin Garrix - Proxy",
+        "trackUrl": "http://k003.kiwi6.com/hotlink/3j1d3r8a4t/5.mp3",
+        "artWork": "https://upload.wikimedia.org/wikipedia/en/2/23/Proxy_Martin_Garrix.jpg"
+      }
+    ]
+  }
+}
