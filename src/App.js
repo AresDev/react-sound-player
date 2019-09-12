@@ -4,8 +4,8 @@ import Player from './shared/components/player/Player';
 function App() {
   return (
     <div className="App">
-      <div id="bg-artwork"></div>
-      <div id="bg-layer"></div>
+      <div id="bg-artwork" />
+      <div id="bg-layer" />
       <Player />
     </div>
   );

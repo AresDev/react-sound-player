@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import './style/PlayerContent.css';
+import PropTypes from 'prop-types';
+import { EMPTY_STRING } from '../../constants/constants';
 
 export class PlayerContent extends Component {
   render() {
     const { info } = this.props;
-    const activeClass = info.playing ? ' active' : '';
+    const activeClass = info.playing ? ' active' : EMPTY_STRING;
     const hoverTimeText =
       info.seekT > 0 ? (
         <div
@@ -36,21 +38,20 @@ export class PlayerContent extends Component {
             onClick={this.props.seekBarClicked}
           >
             {hoverTimeText}
-            <div
-              id="s-hover"
-              onMouseMove={event => event.preventDefault}
-              style={{ width: info.seekT }}
-            ></div>
-            <div
-              id="seek-bar"
-              onMouseMove={event => event.preventDefault}
-              style={{ width: info.playProgress }}
-            ></div>
+            <div id="s-hover" style={{ width: info.seekT }} />
+            <div id="seek-bar" style={{ width: info.playProgress }} />
           </div>
         </div>
       </div>
     );
   }
 }
+
+PlayerContent.propTypes = {
+  info: PropTypes.object.isRequired,
+  seekBarMouseOut: PropTypes.func.isRequired,
+  seekBarMouseMove: PropTypes.func.isRequired,
+  seekBarClicked: PropTypes.func.isRequired
+};
 
 export default PlayerContent;

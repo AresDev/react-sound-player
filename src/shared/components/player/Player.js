@@ -37,7 +37,8 @@ export class Player extends Component {
       buffering: false,
       seekT: '0%',
       currArtwork:
-        'https://www.stickpng.com/assets/images/5856b3da4f6ae202fedf2794.png'
+        'https://www.stickpng.com/assets/images/5856b3da4f6ae202fedf2794.png',
+      mute: false
     };
   }
 
@@ -129,6 +130,7 @@ export class Player extends Component {
       <div className="Player">
         <Controls
           info={this.state}
+          muteClicked={() => this.toggleMute()}
           backwardClicked={() => this.selectTrack(-1)}
           playPauseClicked={() => this.playPause()}
           forwardClicked={() => this.selectTrack(1)}
@@ -146,6 +148,12 @@ export class Player extends Component {
         <Art info={this.state} />
       </div>
     );
+  }
+
+  toggleMute() {
+    const mute = this.state.mute;
+    this.audio.muted = !this.audio.muted;
+    this.setState({ mute: !mute });
   }
 
   getElementOffset(el) {
