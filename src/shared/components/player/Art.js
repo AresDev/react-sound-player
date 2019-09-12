@@ -1,17 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './style/Art.css';
-export class Art extends Component {
-  render() {
-    const activeClass = this.props.info.playing ? 'active' : '';
-    return (
-      <div id="album-art" className={activeClass}>
-        <img
-          src={this.props.info.currArtwork}
-          className="active"
-          alt="currentImage"
-        ></img>
-      </div>
-    );
-  }
-}
+const Art = props => {
+  const { info } = props;
+  const activeClass = info.playing ? 'active' : '';
+  const bufferingClass = info.buffering ? 'buffering' : '';
+  return (
+    <div id="album-art" className={activeClass + ' ' + bufferingClass}>
+      <img src={info.currArtwork} className="active" alt="currentImage"></img>
+      <div id="buffer-box">Buffering ...</div>
+    </div>
+  );
+};
 export default Art;

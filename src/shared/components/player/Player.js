@@ -25,8 +25,6 @@ export class Player extends Component {
   buffInterval = null;
   tFlag = false;
 
-  //playerTrack = $("#player-track"), bgArtwork = $('#bg-artwork'), bgArtworkUrl, albumName = $('#album-name'), trackName = $('#track-name'), albumArt = $('#album-art'), sArea = $('#s-area'), seekBar = $('#seek-bar'), trackTime = $('#track-time'), insTime = $('#ins-time'), sHover = $('#s-hover'), playPauseButton = $("#play-pause-button"),  i = playPauseButton.find('i'), tProgress = $('#current-time'), tTime = $('#track-length'), seekT, seekLoc, seekBarPos, cM, ctMinutes, ctSeconds, curMinutes, curSeconds, durMinutes, durSeconds, playProgress, bTime, nTime = 0, buffInterval = null, tFlag = false;
-
   constructor(props) {
     super(props);
 
@@ -68,11 +66,8 @@ export class Player extends Component {
 
   initPlayer() {
     this.audio = new Audio();
-
     this.selectTrack(0);
-
     this.audio.loop = false;
-
     this.audio.addEventListener('timeupdate', this.updateCurrTime.bind(this));
   }
 
@@ -96,8 +91,6 @@ export class Player extends Component {
     } else {
       --this.currIndex;
     }
-    console.log(this.currIndex);
-    console.log(this.playlist.length);
 
     if (this.currIndex > -1 && this.currIndex < this.playlist.length) {
       if (flag === 0) this.setState({ playing: false });
@@ -122,9 +115,6 @@ export class Player extends Component {
         clearInterval(this.buffInterval);
         this.checkBuffering();
       }
-
-      //TODO:Change album image
-      // bgArtworkUrl = $('#'+currArtwork).attr('src');
     } else {
       if (flag === 0 || flag === 1) {
         --this.currIndex;
@@ -149,49 +139,59 @@ export class Player extends Component {
             this.playFromClickedPos();
           }}
           seekBarMouseOut={() => this.hideHover()}
-          seekBarMouseMove={() => this.showHover()}
+          seekBarMouseMove={(event, sAreaRef) =>
+            this.showHover(event, sAreaRef)
+          }
         />
         <Art info={this.state} />
       </div>
     );
   }
 
-  showHover(event) {
-    this.seekBarPos = event.target.offset();
-    this.seekT = event.clientX - this.seekBarPos.left;
-    this.seekLoc =
-      this.audio.duration * (this.seekT / event.target.outerWidth());
+  getElementOffset(el) {
+    let top = 0;
+    let left = 0;
+    let element = el;
 
-    //sHover.width(seekT);
+    // Loop through the DOM tree
+    // and add it's parent's offset to get page offset
+    do {
+      top += element.offsetTop || 0;
+      left += element.offsetLeft || 0;
+      element = element.offsetParent;
+    } while (element);
 
+    return {
+      top,
+      left
+    };
+  }
+
+  showHover(event, sAreaRef) {
+    const sAreaOffset = this.getElementOffset(sAreaRef);
+    this.seekT = event.clientX - sAreaOffset.left;
+    this.seekLoc = this.audio.duration * (this.seekT / sAreaRef.offsetWidth);
     this.cM = this.seekLoc / 60;
-
     this.ctMinutes = Math.floor(this.cM);
     this.ctSeconds = Math.floor(this.seekLoc - this.ctMinutes * 60);
-
     if (this.ctMinutes < 0 || this.ctSeconds < 0) return;
-
     if (this.ctMinutes < 0 || this.ctSeconds < 0) return;
-
     if (this.ctMinutes < 10) this.ctMinutes = '0' + this.ctMinutes;
     if (this.ctSeconds < 10) this.ctSeconds = '0' + this.ctSeconds;
-
     if (isNaN(this.ctMinutes) || isNaN(this.ctSeconds))
       this.setState({ hoverTimeText: '--:--' });
     else
-      this.setState({ hoverTimeText: this.ctMinutes + ':' + this.ctSeconds });
-
-    //insTime.css({'left':seekT,'margin-left':'-21px'}).fadeIn(0);
+      this.setState({
+        hoverTimeText: this.ctMinutes + ':' + this.ctSeconds,
+        seekT: this.seekT
+      });
   }
 
   hideHover() {
-    console.log('hide');
-    // sHover.width(0);
-    // insTime.text('00:00').css({'left':'0px','margin-left':'0px'}).fadeOut(0);
+    this.setState({ seekT: 0 });
   }
 
   playFromClickedPos() {
-    console.log('clicked');
     this.audio.currentTime = this.seekLoc;
     this.setState({ seekT: this.seekT });
     this.hideHover();
@@ -233,7 +233,6 @@ export class Player extends Component {
     // else
     //     trackTime.addClass('active');
 
-    //updates progress bar state
     this.setState({ playProgress: `${this.playProgress}%` });
 
     if (this.playProgress === 100) {

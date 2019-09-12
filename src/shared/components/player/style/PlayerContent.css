@@ -5,7 +5,7 @@
     width: 77%;
 
     /* display: flex; */
-    z-index: -1;
+    z-index: 0;
     top: 0px;
     padding: 13px 22px 10px 184px;
     transition: 0.3s ease top;
@@ -63,6 +63,7 @@
 #s-area {
     background-color: #d7f0ff;
     cursor: pointer;
+    z-index: 3;
 }
 
 #ins-time {
@@ -73,7 +74,7 @@
     white-space: pre;
     padding: 5px 6px;
     border-radius: 4px;
-    display: none;
+    margin-left: -21px;
 }
 
 #s-hover {

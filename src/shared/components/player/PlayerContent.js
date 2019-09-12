@@ -3,27 +3,48 @@ import './style/PlayerContent.css';
 
 export class PlayerContent extends Component {
   render() {
-    const activeClass = this.props.info.playing ? ' active' : '';
+    const { info } = this.props;
+    const activeClass = info.playing ? ' active' : '';
+    const hoverTimeText =
+      info.seekT > 0 ? (
+        <div
+          id="ins-time"
+          style={{
+            left: info.seekT
+          }}
+        >
+          {info.hoverTimeText}
+        </div>
+      ) : null;
+
     return (
       <div id="player-content" className={activeClass}>
         <div id="player-track">
-          <div id="album-name">{this.props.info.currAlbum}</div>
-          <div id="track-name">{this.props.info.currTrackName}</div>
+          <div id="album-name">{info.currAlbum}</div>
+          <div id="track-name">{info.currTrackName}</div>
           <div id="track-time" className={activeClass}>
-            <div id="current-time">{this.props.info.currentTime}</div>
-            <div id="track-length">{this.props.info.totalTime}</div>
+            <div id="current-time">{info.currentTime}</div>
+            <div id="track-length">{info.totalTime}</div>
           </div>
           <div
             id="s-area"
+            ref={ref => (this.sAreaRef = ref)}
             onMouseOut={this.props.seekBarMouseOut}
-            onMouseMove={this.props.seekBarMouseMove}
+            onMouseMove={event =>
+              this.props.seekBarMouseMove(event, this.sAreaRef)
+            }
             onClick={this.props.seekBarClicked}
           >
-            <div id="ins-time"></div>
-            <div id="s-hover"></div>
+            {hoverTimeText}
+            <div
+              id="s-hover"
+              onMouseMove={event => event.preventDefault}
+              style={{ width: info.seekT }}
+            ></div>
             <div
               id="seek-bar"
-              style={{ width: this.props.info.playProgress }}
+              onMouseMove={event => event.preventDefault}
+              style={{ width: info.playProgress }}
             ></div>
           </div>
         </div>
